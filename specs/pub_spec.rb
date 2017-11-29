@@ -185,6 +185,15 @@ class TestPub < MiniTest::Test
     assert_equal(7, @pub.till)
   end
 
+  def test_server_drink_and_food_successful
+    @pub.serve_drink(@eric, @guinness)
+    @pub.serve_drink(@eric, @white_wine)
+    @pub.serve_food(@eric, @haggis)
+    assert_equal(10, @eric.drunkenness_level)
+    @pub.serve_food(@eric, @beef_bourguignon)
+    assert_equal(5, @eric.drunkenness_level)
+  end
+
   def test_serve_food__failed_food_not_available
     assert_equal(false, @pub.is_food_available?(@chips))
     @pub.serve_food(@eric, @chips)

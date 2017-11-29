@@ -47,4 +47,11 @@ class TestPub < MiniTest::Test
     assert_equal(expected, actual)
   end
 
+  def test_yield_drink
+    @pub.yield_drink(@guinness)
+    expected = false
+    actual = @pub.is_drink_available?(@guinness)
+    assert_equal(expected, actual)
+  end
+
 end

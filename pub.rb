@@ -14,6 +14,9 @@ class Pub
     return @drinks.include?(drink)
   end
 
+    def yield_drink(drink)
+      return @drinks.delete(drink)
+    end
 
 
 

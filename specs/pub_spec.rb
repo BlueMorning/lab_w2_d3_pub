@@ -2,7 +2,9 @@ require("minitest/autorun")
 require("minitest/rg")
 require_relative("../pub")
 require_relative("../drink")
+require_relative("../food")
 require_relative("../customer")
+
 
 
 class TestPub < MiniTest::Test
@@ -14,11 +16,16 @@ class TestPub < MiniTest::Test
     @red_wine   = Drink.new("Red wine", 3, 1)
     @drinks     = [@guinness, @white_wine]
 
+    @haggis     = Food.new("Haggis", 4, 1)
+    @beef_bourguignon = Food.new("Beef bourguignon", 3, 5)
+    @chips      = Food.new("Chips", 2, 1)
+    @food       = [@haggis, @beef_bourguignon]
+
     @eric       = Customer.new("Eric",50, 40)
     @dave       = Customer.new("Dave",1, 44)
     @justin     = Customer.new("Justin",1000, 16)
 
-    @pub        = Pub.new("The black cat", @drinks)
+    @pub        = Pub.new("The black cat", @drinks, @food)
 
   end
 
@@ -31,6 +38,12 @@ class TestPub < MiniTest::Test
   def test_pub_has_drinks
     expected  = @drinks
     actual    = @pub.drinks
+    assert_equal(expected, actual)
+  end
+
+  def test_pub_has_food
+    expected  = @food
+    actual    = @pub.food
     assert_equal(expected, actual)
   end
 
@@ -49,6 +62,18 @@ class TestPub < MiniTest::Test
   def test_pub_has_max_drunkenness_level
     expected = 10
     actual = @pub.max_drunkenness_level
+    assert_equal(expected, actual)
+  end
+
+  def test_is_food_available__true
+    expected = true
+    actual = @pub.is_food_available?(@haggis)
+    assert_equal(expected, actual)
+  end
+
+  def test_is_food_available__false
+    expected = false
+    actual = @pub.is_food_available?(@chips)
     assert_equal(expected, actual)
   end
 

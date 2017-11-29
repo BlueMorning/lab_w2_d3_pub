@@ -16,7 +16,7 @@ class TestPub < MiniTest::Test
     @red_wine   = Drink.new("Red wine", 3, 1)
     @drinks     = [@guinness, @white_wine]
 
-    @haggis     = Food.new("Haggis", 4, 1)
+    @haggis     = Food.new("Haggis", 7, 1)
     @beef_bourguignon = Food.new("Beef bourguignon", 3, 5)
     @chips      = Food.new("Chips", 2, 1)
     @food       = [@haggis, @beef_bourguignon]
@@ -174,6 +174,29 @@ class TestPub < MiniTest::Test
     expected = false
     actual = @pub.is_customer_drunkenness_level_above_max?(@eric)
     assert_equal(expected, actual)
+  end
+
+  def test_serve_food__successful
+    assert_equal(true, @pub.is_food_available?(@haggis))
+    assert_equal(true, @eric.can_afford_item?(@haggis.price))
+    @pub.serve_food(@eric, @haggis)
+    assert_equal(false, @pub.is_food_available?(@haggis))
+    assert_equal(43, @eric.wallet)
+    assert_equal(7, @pub.till)
+  end
+
+  def test_serve_drink__failed_food_not_available
+    assert_equal(false, @pub.is_food_available?(@chips))
+    @pub.serve_food(@eric, @chips)
+    assert_equal(50, @eric.wallet)
+    assert_equal(0, @pub.till)
+  end
+
+  def test_serve_drink__failed_customer_not_solvent
+    assert_equal(false, @dave.can_afford_item?(@haggis.price))
+    @pub.serve_food(@dave, @haggis)
+    assert_equal(1, @dave.wallet)
+    assert_equal(0, @pub.till)
   end
 
 end

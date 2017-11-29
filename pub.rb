@@ -43,6 +43,15 @@ class Pub
     customer.increase_drunkenness_level(drink)
   end
 
+  def serve_food(customer, food)
+    return if !(is_food_available?(food))
+    return if !(customer.can_afford_item?(food.price))
+    yield_food(food)
+    customer.decrease_wallet(food.price)
+    increase_till(food.price)
+    #customer.decrease_drunkenness_level(food)
+  end
+
   def is_customer_above_legal_age?(customer)
     return customer.age >= @legal_age
   end

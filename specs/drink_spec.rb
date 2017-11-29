@@ -15,4 +15,10 @@ class TestDrink < MiniTest::Test
     assert_equal(expected, actual)
   end
 
+  def test_drink_has_price
+    expected = 4
+    actual = @guinness.price
+    assert_equal(expected, actual)
+  end
+
 end

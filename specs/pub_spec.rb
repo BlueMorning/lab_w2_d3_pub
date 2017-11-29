@@ -54,4 +54,11 @@ class TestPub < MiniTest::Test
     assert_equal(expected, actual)
   end
 
+  def test_increase_till
+    @pub.increase_till(@guinness.price)
+    expected = 4
+    actual = @pub.till
+    assert_equal(expected, actual)
+  end
+
 end

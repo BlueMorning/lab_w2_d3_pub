@@ -18,6 +18,9 @@ class Pub
     return @drinks.delete(drink)
   end
 
+  def increase_till(price)
+    return @till += price
+  end
 
 
 end

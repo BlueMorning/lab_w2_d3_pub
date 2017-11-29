@@ -22,5 +22,11 @@ class TestPub < MiniTest::Test
     assert_equal(expected, actual)
   end
 
+  def test_pub_has_drinks
+    expected  = @drinks
+    actual    = @pub.drinks
+    assert_equal(expected, actual)
+  end
+
 
 end

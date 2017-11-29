@@ -66,5 +66,12 @@ class TestCustomer < MiniTest::Test
     assert_equal(expected, actual)
   end
 
+  def test_increase_drunkenness_level
+    @eric.increase_drunkenness_level(@guinness)
+    expected = 1
+    actual = @eric.drunkenness_level
+    assert_equal(expected, actual)
+  end
+
 
 end

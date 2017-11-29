@@ -2,13 +2,14 @@
 
 class Pub
 
-  attr_reader :name, :drinks, :till, :legal_age
+  attr_reader :name, :drinks, :till, :legal_age, :max_drunkenness_level
 
-  def initialize(name, drinks, legal_age = 18)
-    @name   = name
-    @drinks = drinks
-    @till   = 0
-    @legal_age = legal_age
+  def initialize(name, drinks, legal_age = 18, max_drunkenness_level = 10)
+    @name                   = name
+    @drinks                 = drinks
+    @till                   = 0
+    @legal_age              = legal_age
+    @max_drunkenness_level  = max_drunkenness_level
   end
 
   def is_drink_available?(drink)

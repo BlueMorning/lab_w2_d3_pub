@@ -46,6 +46,12 @@ class TestPub < MiniTest::Test
     assert_equal(expected, actual)
   end
 
+  def test_pub_has_max_drunkenness_level
+    expected = 10
+    actual = @pub.max_drunkenness_level
+    assert_equal(expected, actual)
+  end
+
   def test_is_drink_available__true
     expected = true
     actual = @pub.is_drink_available?(@guinness)

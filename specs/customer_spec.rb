@@ -14,8 +14,8 @@ class TestCustomer < MiniTest::Test
 
     @pub        = Pub.new("The black cat", @drinks)
 
-    @eric       = Customer.new("Eric",50)
-    @dave       = Customer.new("Dave",1)
+    @eric       = Customer.new("Eric",50, 40)
+    @dave       = Customer.new("Dave",1, 44)
 
   end
 
@@ -30,6 +30,14 @@ class TestCustomer < MiniTest::Test
     expected = @eric.wallet
     assert_equal(expected, actual)
   end
+
+  def test_customer_has_age
+    actual = 40
+    expected = @eric.age
+    assert_equal(expected, actual)
+  end
+
+
 
   def test_customer_can_afford_item__true
     expected = true

@@ -7,9 +7,13 @@ class Customer
     @wallet = wallet
   end
 
-def can_afford_drink?(drink)
-    return @wallet >= drink.price
-end
+  def can_afford_item?(price)
+    return @wallet >= price
+  end
+
+  def decrease_wallet(price)
+    return @wallet -= price
+  end
 
 
 

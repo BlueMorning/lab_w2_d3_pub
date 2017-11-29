@@ -25,23 +25,31 @@ class TestCustomer < MiniTest::Test
     assert_equal(expected, actual)
   end
 
-  def test_has_has_wallet
+  def test_customer_has_wallet
     actual = 50
     expected = @eric.wallet
     assert_equal(expected, actual)
   end
 
-  def test_customer_can_afford_drink__true
+  def test_customer_can_afford_item__true
     expected = true
-    actual = @eric.can_afford_drink?(@guinness)
+    actual = @eric.can_afford_item?(@guinness.price)
     assert_equal(expected, actual)
 
   end
 
-  def test_customer_can_afford_drink__false
+  def test_customer_can_afford_item__false
     expected = false
-    actual = @dave.can_afford_drink?(@guinness)
+    actual = @dave.can_afford_item?(@guinness.price)
     assert_equal(expected, actual)
   end
+
+  def test_decrease_wallet
+    @eric.decrease_wallet(@guinness.price)
+    expected = 46
+    actual = @eric.wallet
+    assert_equal(expected, actual)
+  end
+
 
 end

@@ -2,6 +2,7 @@ require("minitest/autorun")
 require("minitest/rg")
 require_relative("../pub")
 require_relative("../drink")
+require_relative("../customer")
 
 
 class TestPub < MiniTest::Test
@@ -12,6 +13,9 @@ class TestPub < MiniTest::Test
     @white_wine = Drink.new("White wine", 3)
     @red_wine   = Drink.new("Red wine", 3)
     @drinks     = [@guinness, @white_wine]
+
+    @eric       = Customer.new("Eric",50, 40)
+    @dave       = Customer.new("Dave",1, 16)
 
     @pub        = Pub.new("The black cat", @drinks)
 
@@ -32,6 +36,12 @@ class TestPub < MiniTest::Test
   def test_pub_has_till
     expected  = 0
     actual    = @pub.till
+    assert_equal(expected, actual)
+  end
+
+  def test_pub_has_leagal_age
+    expected = 18
+    actual = @pub.legal_age
     assert_equal(expected, actual)
   end
 
@@ -58,6 +68,18 @@ class TestPub < MiniTest::Test
     @pub.increase_till(@guinness.price)
     expected = 4
     actual = @pub.till
+    assert_equal(expected, actual)
+  end
+
+  def test_is_customer_above_legal_age__true
+    expected = true
+    actual = @pub.is_customer_above_legal_age?(@eric)
+    assert_equal(expected, actual)
+  end
+
+  def test_is_customer_above_legal_age__false
+    expected = false
+    actual = @pub.is_customer_above_legal_age?(@dave)
     assert_equal(expected, actual)
   end
 

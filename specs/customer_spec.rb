@@ -15,7 +15,7 @@ class TestCustomer < MiniTest::Test
     @pub        = Pub.new("The black cat", @drinks)
 
     @eric       = Customer.new("Eric",50, 40)
-    @dave       = Customer.new("Dave",1, 44)
+    @dave       = Customer.new("Dave",1, 16)
 
   end
 

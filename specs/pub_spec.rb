@@ -9,8 +9,8 @@ class TestPub < MiniTest::Test
 
   def setup
 
-    @guinness   = Drink.new("Guinness", 4, 1)
-    @white_wine = Drink.new("White wine", 3, 1)
+    @guinness   = Drink.new("Guinness", 4, 5)
+    @white_wine = Drink.new("White wine", 3, 6)
     @red_wine   = Drink.new("Red wine", 3, 1)
     @drinks     = [@guinness, @white_wine]
 
@@ -126,6 +126,21 @@ class TestPub < MiniTest::Test
   def test_is_customer_above_legal_age__false
     expected = false
     actual = @pub.is_customer_above_legal_age?(@justin)
+    assert_equal(expected, actual)
+  end
+
+  def test_is_customer_drunkenness_level_above_max__true
+    @pub.serve_drink(@eric, @guinness)
+    @pub.serve_drink(@eric, @white_wine)
+    expected = true
+    actual = @pub.is_customer_drunkenness_level_above_max?(@eric)
+    assert_equal(expected, actual)
+  end
+
+  def test_is_customer_drunkenness_level_above_max__false
+    @pub.serve_drink(@eric, @guinness)
+    expected = false
+    actual = @pub.is_customer_drunkenness_level_above_max?(@eric)
     assert_equal(expected, actual)
   end
 

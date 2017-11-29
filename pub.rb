@@ -38,5 +38,9 @@ class Pub
     return customer.age >= @legal_age
   end
 
+  def is_customer_drunkenness_level_above_max?(customer)
+    return customer.drunkenness_level >= @max_drunkenness_level
+  end
+
 
 end

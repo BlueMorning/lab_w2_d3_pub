@@ -51,12 +51,31 @@ class TestCustomer < MiniTest::Test
     assert_equal(expected, actual)
   end
 
-  def test_buy_drink
+  def test_buy_drink__successful
+    assert_equal(true, @pub.is_drink_available?(@guinness))
+    assert_equal(true, @eric.can_afford_item?(@guinness.price))
     @eric.buy_drink(@pub, @guinness)
     assert_equal(false, @pub.is_drink_available?(@guinness))
     assert_equal(46, @eric.wallet)
     assert_equal(4, @pub.till)
   end
+
+  def test_buy_drink__failed_drink_not_available
+    assert_equal(false, @pub.is_drink_available?(@red_wine))
+    @eric.buy_drink(@pub, @red_wine)
+    assert_equal(false, @pub.is_drink_available?(@red_wine))
+    assert_equal(50, @eric.wallet)
+    assert_equal(0, @pub.till)
+  end
+
+  def test_buy_drink__failed_customer_not_solvent
+    assert_equal(false, @dave.can_afford_item?(@guinness.price))
+    @dave.buy_drink(@pub, @guiness)
+    assert_equal(false, @dave.can_afford_item?(@guinness.price))
+    assert_equal(1, @dave.wallet)
+    assert_equal(0, @pub.till)
+  end
+
 
 
 end

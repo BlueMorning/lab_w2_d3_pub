@@ -9,9 +9,9 @@ class TestPub < MiniTest::Test
 
   def setup
 
-    @guinness   = Drink.new("Guinness", 4)
-    @white_wine = Drink.new("White wine", 3)
-    @red_wine   = Drink.new("Red wine", 3)
+    @guinness   = Drink.new("Guinness", 4, 1)
+    @white_wine = Drink.new("White wine", 3, 1)
+    @red_wine   = Drink.new("Red wine", 3, 1)
     @drinks     = [@guinness, @white_wine]
 
     @eric       = Customer.new("Eric",50, 40)

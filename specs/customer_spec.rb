@@ -8,8 +8,8 @@ class TestCustomer < MiniTest::Test
 
   def setup
 
-    @guinness   = Drink.new("Guinness", 4)
-    @white_wine = Drink.new("White wine", 3)
+    @guinness   = Drink.new("Guinness", 4, 1)
+    @white_wine = Drink.new("White wine", 3, 1)
     @drinks     = [@guinness, @white_wine]
 
     @pub        = Pub.new("The black cat", @drinks)
@@ -35,6 +35,12 @@ class TestCustomer < MiniTest::Test
   def test_customer_has_age
     actual = 40
     expected = @eric.age
+    assert_equal(expected, actual)
+  end
+
+  def test_customer_has_drunkenness_level
+    actual = 0
+    expected = @eric.drunkenness_level
     assert_equal(expected, actual)
   end
 

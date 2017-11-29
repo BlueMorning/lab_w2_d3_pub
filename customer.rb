@@ -21,4 +21,10 @@ class Customer
     return @drunkenness_level += drink.alcohol_level
   end
 
+  def decrease_drunkenness_level(food)
+    @drunkenness_level -= food.rejuvenation_level
+    @drunkenness_level = 0 if @drunkenness_level < 0
+    return @drunkenness_level
+  end
+
 end

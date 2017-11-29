@@ -185,18 +185,19 @@ class TestPub < MiniTest::Test
     assert_equal(7, @pub.till)
   end
 
-  def test_serve_drink__failed_food_not_available
+  def test_serve_food__failed_food_not_available
     assert_equal(false, @pub.is_food_available?(@chips))
     @pub.serve_food(@eric, @chips)
     assert_equal(50, @eric.wallet)
     assert_equal(0, @pub.till)
   end
 
-  def test_serve_drink__failed_customer_not_solvent
+  def test_serve_food__failed_customer_not_solvent
     assert_equal(false, @dave.can_afford_item?(@haggis.price))
     @pub.serve_food(@dave, @haggis)
     assert_equal(1, @dave.wallet)
     assert_equal(0, @pub.till)
   end
+
 
 end

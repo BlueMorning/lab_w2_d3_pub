@@ -96,6 +96,13 @@ class TestPub < MiniTest::Test
     assert_equal(expected, actual)
   end
 
+  def test_yield_food
+    @pub.yield_food(@haggis)
+    expected = false
+    actual = @pub.is_food_available?(@haggis)
+    assert_equal(expected, actual)
+  end
+
   def test_increase_till
     @pub.increase_till(@guinness.price)
     expected = 4

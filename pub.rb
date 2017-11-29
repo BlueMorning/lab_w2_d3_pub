@@ -25,6 +25,10 @@ class Pub
     return @drinks.delete(drink)
   end
 
+  def yield_food(food)
+    return @food.delete(food)
+  end
+
   def increase_till(price)
     return @till += price
   end

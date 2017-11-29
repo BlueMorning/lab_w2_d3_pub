@@ -7,6 +7,9 @@ class Customer
     @wallet = wallet
   end
 
+def can_aford_drink(drink)
+    return @wallet >= drink.price 
+end
 
 
 

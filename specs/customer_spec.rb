@@ -1,5 +1,4 @@
 require("minitest/autorun")
-require("minitest/rg")
 require_relative("../pub")
 require_relative("../drink")
 require_relative("../food")
@@ -11,11 +10,16 @@ class TestCustomer < MiniTest::Test
 
     @guinness   = Drink.new("Guinness", 4, 1)
     @white_wine = Drink.new("White wine", 3, 1)
-    @drinks     = [@guinness, @white_wine]
+    @red_wine   = Drink.new("Red wine", 3, 1)
 
-    @haggis     = Food.new("Haggis", 7, 1)
+    @drinks     = {@guinness.name    => {drink: @guinness,   quantity: 20},
+                   @white_wine.name  => {drink: @white_wine, quantity: 100},
+                   @red_wine.name    => {drink: @red_wine,   quantity: 0}
+                  }
+
+    @haggis           = Food.new("Haggis", 7, 1)
     @beef_bourguignon = Food.new("Beef bourguignon", 3, 5)
-    @chips      = Food.new("Chips", 2, 1)
+    @chips            = Food.new("Chips", 2, 1)
 
     @pub        = Pub.new("The black cat", @drinks)
 
@@ -49,32 +53,29 @@ class TestCustomer < MiniTest::Test
     assert_equal(expected, actual)
   end
 
-
-
   def test_customer_can_afford_item__true
     expected = true
     actual = @eric.can_afford_item?(@guinness.price)
     assert_equal(expected, actual)
-
   end
 
   def test_customer_can_afford_item__false
     expected = false
-    actual = @dave.can_afford_item?(@guinness.price)
+    actual   = @dave.can_afford_item?(@guinness.price)
     assert_equal(expected, actual)
   end
 
   def test_decrease_wallet
     @eric.decrease_wallet(@guinness.price)
     expected = 46
-    actual = @eric.wallet
+    actual   = @eric.wallet
     assert_equal(expected, actual)
   end
 
   def test_increase_drunkenness_level
     @eric.increase_drunkenness_level(@guinness)
     expected = 1
-    actual = @eric.drunkenness_level
+    actual   = @eric.drunkenness_level
     assert_equal(expected, actual)
   end
 

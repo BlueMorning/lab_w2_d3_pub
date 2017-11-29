@@ -14,19 +14,19 @@ class Pub
   end
 
   def is_food_available?(food)
-    return @food.include?(food)
+    return @food[food.name] != nil && @food[food.name][:quantity] > 0
   end
 
   def is_drink_available?(drink)
-    return @drinks.include?(drink)
+    return @drinks[drink.name] != nil && @drinks[drink.name][:quantity] > 0
   end
 
   def yield_drink(drink)
-    return @drinks.delete(drink)
+    @drinks[drink.name][:quantity] -= 1
   end
 
   def yield_food(food)
-    return @food.delete(food)
+    @food[food.name][:quantity] -= 1
   end
 
   def increase_till(price)
@@ -60,5 +60,12 @@ class Pub
     return customer.drunkenness_level >= @max_drunkenness_level
   end
 
+  def stock_value()
+    stock_value = 0
+    @drinks.each do |drink_name, drink_info|
+      stock_value += (drink_info[:drink].price * drink_info[:quantity])
+    end
+    return stock_value
+  end
 
 end

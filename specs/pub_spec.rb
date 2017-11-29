@@ -1,5 +1,4 @@
 require("minitest/autorun")
-require("minitest/rg")
 require_relative("../pub")
 require_relative("../drink")
 require_relative("../food")
@@ -14,12 +13,20 @@ class TestPub < MiniTest::Test
     @guinness   = Drink.new("Guinness", 4, 5)
     @white_wine = Drink.new("White wine", 3, 6)
     @red_wine   = Drink.new("Red wine", 3, 1)
-    @drinks     = [@guinness, @white_wine]
 
-    @haggis     = Food.new("Haggis", 7, 1)
+    @drinks     = {@guinness.name    => {drink: @guinness,   quantity: 20},
+                   @white_wine.name  => {drink: @white_wine, quantity: 100},
+                   @red_wine.name    => {drink: @red_wine,   quantity: 0}
+                  }
+
+    @haggis           = Food.new("Haggis", 7, 1)
     @beef_bourguignon = Food.new("Beef bourguignon", 3, 5)
-    @chips      = Food.new("Chips", 2, 1)
-    @food       = [@haggis, @beef_bourguignon]
+    @chips            = Food.new("Chips", 2, 1)
+
+    @food       = {@haggis.name            => {food: @haggis,           quantity: 1},
+                   @beef_bourguignon.name  => {food: @beef_bourguignon, quantity: 1},
+                   @chips.name             => {food: @chips,            quantity: 0}
+                  }
 
     @eric       = Customer.new("Eric",50, 40)
     @dave       = Customer.new("Dave",1, 44)
@@ -90,23 +97,25 @@ class TestPub < MiniTest::Test
   end
 
   def test_yield_drink
+    nb_guinness = @pub.drinks[@guinness.name][:quantity]
     @pub.yield_drink(@guinness)
-    expected = false
-    actual = @pub.is_drink_available?(@guinness)
+    expected    = nb_guinness-1
+    actual      = @pub.drinks[@guinness.name][:quantity]
     assert_equal(expected, actual)
   end
 
   def test_yield_food
+    nb_haggis   = @pub.food[@haggis.name][:quantity]
     @pub.yield_food(@haggis)
-    expected = false
-    actual = @pub.is_food_available?(@haggis)
+    expected    = nb_haggis-1
+    actual      = @pub.food[@haggis.name][:quantity]
     assert_equal(expected, actual)
   end
 
   def test_increase_till
     @pub.increase_till(@guinness.price)
-    expected = 4
-    actual = @pub.till
+    expected  = 4
+    actual    = @pub.till
     assert_equal(expected, actual)
   end
 
@@ -115,8 +124,9 @@ class TestPub < MiniTest::Test
     assert_equal(true, @eric.can_afford_item?(@guinness.price))
     assert_equal(true, @pub.is_customer_above_legal_age?(@eric))
     drunkenness_level_before = @eric.drunkenness_level
+    nb_guiness_before = @pub.drinks[@guinness.name][:quantity]
     @pub.serve_drink(@eric, @guinness)
-    assert_equal(false, @pub.is_drink_available?(@guinness))
+    assert_equal(nb_guiness_before-1, @pub.drinks[@guinness.name][:quantity])
     assert_equal(46, @eric.wallet)
     assert_equal(4, @pub.till)
     assert_equal(drunkenness_level_before + @guinness.alcohol_level, @eric.drunkenness_level)
@@ -208,5 +218,8 @@ class TestPub < MiniTest::Test
     assert_equal(0, @pub.till)
   end
 
+  def test_stock_value
+    assert_equal(380, @pub.stock_value())
+  end
 
 end

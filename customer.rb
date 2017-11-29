@@ -17,6 +17,7 @@ class Customer
   end
 
   def buy_drink(pub, drink)
+    return if !(pub.is_customer_above_legal_age?(self))
     return if !(pub.is_drink_available?(drink))
     return if !(can_afford_item?(drink.price))
     pub.yield_drink(drink)

@@ -15,7 +15,8 @@ class TestCustomer < MiniTest::Test
     @pub        = Pub.new("The black cat", @drinks)
 
     @eric       = Customer.new("Eric",50, 40)
-    @dave       = Customer.new("Dave",1, 16)
+    @dave       = Customer.new("Dave",1, 44)
+    @justin     = Customer.new("Justin",1000, 16)
 
   end
 
@@ -62,6 +63,7 @@ class TestCustomer < MiniTest::Test
   def test_buy_drink__successful
     assert_equal(true, @pub.is_drink_available?(@guinness))
     assert_equal(true, @eric.can_afford_item?(@guinness.price))
+    assert_equal(true, @pub.is_customer_above_legal_age?(@eric))
     @eric.buy_drink(@pub, @guinness)
     assert_equal(false, @pub.is_drink_available?(@guinness))
     assert_equal(46, @eric.wallet)
@@ -71,16 +73,21 @@ class TestCustomer < MiniTest::Test
   def test_buy_drink__failed_drink_not_available
     assert_equal(false, @pub.is_drink_available?(@red_wine))
     @eric.buy_drink(@pub, @red_wine)
-    assert_equal(false, @pub.is_drink_available?(@red_wine))
     assert_equal(50, @eric.wallet)
     assert_equal(0, @pub.till)
   end
 
   def test_buy_drink__failed_customer_not_solvent
     assert_equal(false, @dave.can_afford_item?(@guinness.price))
-    @dave.buy_drink(@pub, @guiness)
-    assert_equal(false, @dave.can_afford_item?(@guinness.price))
+    @dave.buy_drink(@pub, @guinness)
     assert_equal(1, @dave.wallet)
+    assert_equal(0, @pub.till)
+  end
+
+  def test_buy_drink__failed_customer_not_old_enough
+    assert_equal(false, @pub.is_customer_above_legal_age?(@justin))
+    @justin.buy_drink(@pub, @guinness)
+    assert_equal(1000, @justin.wallet)
     assert_equal(0, @pub.till)
   end
 

@@ -15,7 +15,8 @@ class TestPub < MiniTest::Test
     @drinks     = [@guinness, @white_wine]
 
     @eric       = Customer.new("Eric",50, 40)
-    @dave       = Customer.new("Dave",1, 16)
+    @dave       = Customer.new("Dave",1, 44)
+    @justin     = Customer.new("Justin",1000, 16)
 
     @pub        = Pub.new("The black cat", @drinks)
 
@@ -79,7 +80,7 @@ class TestPub < MiniTest::Test
 
   def test_is_customer_above_legal_age__false
     expected = false
-    actual = @pub.is_customer_above_legal_age?(@dave)
+    actual = @pub.is_customer_above_legal_age?(@justin)
     assert_equal(expected, actual)
   end
 

@@ -2,7 +2,7 @@
 
 class Pub
 
-  attr_reader :name, :drinks
+  attr_reader :name, :drinks, :till
 
   def initialize(name, drinks)
     @name   = name

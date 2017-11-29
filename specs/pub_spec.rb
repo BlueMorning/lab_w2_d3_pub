@@ -28,5 +28,10 @@ class TestPub < MiniTest::Test
     assert_equal(expected, actual)
   end
 
+  def test_pub_has_till
+    expected  = 0
+    actual    = @pub.till
+    assert_equal(expected, actual)
+  end
 
 end

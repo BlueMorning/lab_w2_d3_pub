@@ -10,6 +10,10 @@ class Pub
     @till   = 0
   end
 
+  def is_drink_available?(drink)
+    return @drinks.include?(drink)
+  end
+
 
 
 

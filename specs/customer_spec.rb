@@ -33,16 +33,15 @@ class TestCustomer < MiniTest::Test
 
   def test_customer_can_afford_drink__true
     expected = true
-    actual = @eric.can_aford_drink(@guinness)
+    actual = @eric.can_afford_drink?(@guinness)
     assert_equal(expected, actual)
 
   end
 
   def test_customer_can_afford_drink__false
     expected = false
-    actual = @dave.can_aford_drink(@guinness)
+    actual = @dave.can_afford_drink?(@guinness)
     assert_equal(expected, actual)
-
   end
 
 end

@@ -76,31 +76,39 @@ class TestPub < MiniTest::Test
     assert_equal(true, @pub.is_drink_available?(@guinness))
     assert_equal(true, @eric.can_afford_item?(@guinness.price))
     assert_equal(true, @pub.is_customer_above_legal_age?(@eric))
+    drunkenness_level_before = @eric.drunkenness_level
     @pub.serve_drink(@eric, @guinness)
     assert_equal(false, @pub.is_drink_available?(@guinness))
     assert_equal(46, @eric.wallet)
     assert_equal(4, @pub.till)
+    assert_equal(drunkenness_level_before + @guinness.alcohol_level, @eric.drunkenness_level)
   end
 
   def test_serve_drink__failed_drink_not_available
     assert_equal(false, @pub.is_drink_available?(@red_wine))
+    drunkenness_level_before = @eric.drunkenness_level
     @pub.serve_drink(@eric, @red_wine)
     assert_equal(50, @eric.wallet)
     assert_equal(0, @pub.till)
+    assert_equal(drunkenness_level_before, @eric.drunkenness_level)
   end
 
   def test_serve_drink__failed_customer_not_solvent
     assert_equal(false, @dave.can_afford_item?(@guinness.price))
+    drunkenness_level_before = @eric.drunkenness_level
     @pub.serve_drink(@dave, @guinness)
     assert_equal(1, @dave.wallet)
     assert_equal(0, @pub.till)
+    assert_equal(drunkenness_level_before, @eric.drunkenness_level)
   end
 
   def test_serve_drink__failed_customer_not_old_enough
     assert_equal(false, @pub.is_customer_above_legal_age?(@justin))
+    drunkenness_level_before = @eric.drunkenness_level
     @pub.serve_drink(@justin, @guinness)
     assert_equal(1000, @justin.wallet)
     assert_equal(0, @pub.till)
+    assert_equal(drunkenness_level_before, @eric.drunkenness_level)
   end
 
   def test_is_customer_above_legal_age__true

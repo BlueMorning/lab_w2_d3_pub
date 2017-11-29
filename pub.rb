@@ -30,6 +30,7 @@ class Pub
     yield_drink(drink)
     customer.decrease_wallet(drink.price)
     increase_till(drink.price)
+    customer.increase_drunkenness_level(drink)
   end
 
   def is_customer_above_legal_age?(customer)

@@ -23,6 +23,15 @@ class Pub
     return @till += price
   end
 
+  def serve_drink(customer, drink)
+    return if !(is_customer_above_legal_age?(customer))
+    return if !(is_drink_available?(drink))
+    return if !(customer.can_afford_item?(drink.price))
+    yield_drink(drink)
+    customer.decrease_wallet(drink.price)
+    increase_till(drink.price)
+  end
+
   def is_customer_above_legal_age?(customer)
     return customer.age >= @legal_age
   end
